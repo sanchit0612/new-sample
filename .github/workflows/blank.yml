@@ -37,7 +37,7 @@ jobs:
           sleep 240  # Wait before checking the status
           response=$(curl --location "https://api.hyperexecute.cloud/v2.0/job/$job_id" \
             --header "accept: application/json" \
-            --header "Authorization: Basic <Base64Auth>")
+            --header "Authorization: Basic ${{ secrets.LT_AUTH }}"
             
           echo "Response: $response"
           status=$(echo $response | jq -r '.data.status')
