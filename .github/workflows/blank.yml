@@ -20,7 +20,7 @@ jobs:
           response=$(curl --location 'https://test-manager-api.lambdatest.com/api/atm/v1/hyperexecute' \
             --header 'accept: application/json' \
             --header 'Content-Type: application/json' \
-            --header 'Authorization: Basic c2FuY2hpdHN0ZXN0bXVhaTpMVF9lcWRFdlhBcXZ1V0JGSGNvT3VSZnowQlJTOFJzYmg0eWx0QXZZSkpDYnlSamlyYg==' \
+            --header "Authorization: Basic ${{ secrets.LT_AUTH }}" \
             --data '{
                 "test_run_id" : "01KXK39TEHD8GNBNDAB12X7K92",
                 "concurrency" : 1,
