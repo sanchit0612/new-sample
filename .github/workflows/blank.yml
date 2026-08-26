@@ -20,8 +20,8 @@ jobs:
             --header "Authorization: Basic ${{ secrets.LT_AUTH }}" \
             --data '{
               "test_run_id": "01M0ZWVYRX6CY5QXCR9RC4ETXD",
-              "concurrency": 1
-              
+              "concurrency": 1,
+              "mobile_region": "centralindia"
             }')
           echo "Response:"
           echo "$response"
