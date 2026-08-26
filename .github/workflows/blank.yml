@@ -1,5 +1,4 @@
 name: Run Sanity Tests on LambdaTest
-
 on:
   push:
     branches:
@@ -7,63 +6,47 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   sanity-test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Trigger Sanity Test on LambdaTest
         id: trigger-test
         run: |
           echo "Triggering sanity tests on LambdaTest..."
-
           response=$(curl --silent --location "https://test-manager-api.lambdatest.com/api/atm/v1/hyperexecute" \
             --header "accept: application/json" \
             --header "Content-Type: application/json" \
             --header "Authorization: Basic ${{ secrets.LT_AUTH }}" \
             --data '{
               "test_run_id": "01KXK39TEHD8GNBNDAB12X7K92",
-              "concurrency": 1
+              "concurrency": 1,
+              "region": "us"
             }')
-
           echo "Response:"
           echo "$response"
-
           job_id=$(echo "$response" | jq -r '.job_id')
-
           if [[ -z "$job_id" || "$job_id" == "null" ]]; then
             echo "Failed to retrieve Job ID."
             exit 1
           fi
-
           echo "Job ID: $job_id"
-
           echo "job_id=$job_id" >> "$GITHUB_OUTPUT"
-
       - name: Check Test Status
         run: |
           echo "Checking test status..."
-
           job_id="${{ steps.trigger-test.outputs.job_id }}"
           echo "Job ID: $job_id"
-
           sleep 240
-
           response=$(curl --silent --location "https://api.hyperexecute.cloud/v2.0/job/$job_id" \
             --header "accept: application/json" \
             --header "Authorization: Basic ${{ secrets.LT_AUTH }}")
-
           echo "Response:"
           echo "$response"
-
           status=$(echo "$response" | jq -r '.data.status')
-
           echo "Test Status: $status"
-
           if [[ "$status" != "completed" ]]; then
             echo "Tests failed or are still running."
             exit 1
           fi
-
           echo "Sanity tests completed successfully."
