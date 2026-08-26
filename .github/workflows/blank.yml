@@ -19,7 +19,7 @@ jobs:
             --header "Content-Type: application/json" \
             --header "Authorization: Basic ${{ secrets.LT_AUTH }}" \
             --data '{
-              "test_run_id": "01KXK39TEHD8GNBNDAB12X7K92",
+              "test_run_id": "01M0ZWVYRX6CY5QXCR9RC4ETXD",
               "concurrency": 1
               
             }')
