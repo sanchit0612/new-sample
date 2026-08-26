@@ -21,7 +21,7 @@ jobs:
             --data '{
               "test_run_id": "01KXK39TEHD8GNBNDAB12X7K92",
               "concurrency": 1,
-              "region": "us"
+              "region": "centralindia"
             }')
           echo "Response:"
           echo "$response"
