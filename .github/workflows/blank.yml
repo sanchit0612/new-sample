@@ -19,13 +19,16 @@ jobs:
             --header "Content-Type: application/json" \
             --header "Authorization: Basic ${{ secrets.LT_AUTH }}" \
             --data '{
-              "test_run_id": "01M0ZWVYRX6CY5QXCR9RC4ETXD",
+              "test_run_id": "01KXK39TEHD8GNBNDAB12X7K92",
               "concurrency": 1,
-              "region": "centralindia"
+              "region": "us"
             }')
           echo "Response:"
           echo "$response"
-          job_id=$(echo "$response" | jq -r '.job_id')
+          job_id=$(echo "$response" | jq -r '.job_id // empty')
+          if [[ -z "$job_id" ]]; then
+            job_id=$(echo "$response" | jq -r '.app_job_id // empty')
+          fi
           if [[ -z "$job_id" || "$job_id" == "null" ]]; then
             echo "Failed to retrieve Job ID."
             exit 1
