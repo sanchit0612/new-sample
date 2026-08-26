@@ -21,7 +21,7 @@ jobs:
             --data '{
               "test_run_id": "01M0ZWVYRX6CY5QXCR9RC4ETXD",
               "concurrency": 1,
-              "mobile_region": "centralindia"
+              "mobile_region": "ap"
             }')
           echo "Response:"
           echo "$response"
