@@ -1,4 +1,4 @@
-name: Run Sanity Tests on LambdaTest
+name: Run Sanity Tests on LambdaTest test run
 on:
   push:
     branches:
